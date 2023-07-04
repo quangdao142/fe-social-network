@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" id="content">
     <a-layout-content>Content</a-layout-content>
   </div>
 </template>
@@ -9,13 +9,10 @@
 </script>
 
 <style>
-#components-layout-demo-basic .ant-layout-content {
-  min-height: 120px;
-  color: #fff;
-  line-height: 120px;
+#content .ant-layout-content {
   background: rgba(16, 142, 233, 1);
-}
-[data-theme='dark'] #components-layout-demo-basic .ant-layout-content {
-  background: #107bcb;
+  color: #fff;
+  min-height: 120px;
+  line-height: 120px;
 }
 </style>

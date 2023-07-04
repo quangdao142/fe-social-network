@@ -1,5 +1,5 @@
 <template>
-  <div class="sider">
+  <div class="sider" id="sider">
     <a-layout-sider>Sider</a-layout-sider>
   </div>
 </template>
@@ -9,12 +9,9 @@
 </script>
 
 <style>
-#components-layout-demo-basic .ant-layout-sider {
+#sider .ant-layout-sider {
+  background: #3ba0e9;
   color: #fff;
   line-height: 120px;
-  background: #3ba0e9;
-}
-[data-theme='dark'] #components-layout-demo-basic .ant-layout-sider {
-  background: #3499ec;
 }
 </style>

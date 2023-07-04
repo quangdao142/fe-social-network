@@ -1,12 +1,10 @@
 <template>
-  <div class="home-page">
-    <a-layout>
+  <div class="home-page" id="components-layout">
       <HomeHeader />
       <a-layout>
         <HomeSider />
         <HomeContent />
       </a-layout>
-    </a-layout>
   </div>
 </template>
 
@@ -24,10 +22,13 @@ export default {
 </script>
 
 <style>
-#components-layout-demo-basic .code-box-demo {
+#components-layout {
   text-align: center;
 }
-#components-layout-demo-basic > .code-box-demo > .ant-layout + .ant-layout {
-  margin-top: 48px;
+#components-layout > .ant-layout {
+  margin-bottom: 48px;
+}
+#components-layoutc > .ant-layout:last-child {
+  margin: 0;
 }
 </style>
