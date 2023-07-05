@@ -28,7 +28,7 @@ export default {
 #components-layout > .ant-layout {
   margin-bottom: 48px;
 }
-#components-layoutc > .ant-layout:last-child {
+#components-layout > .ant-layout:last-child {
   margin: 0;
 }
 </style>
