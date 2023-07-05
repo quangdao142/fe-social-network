@@ -1,11 +1,11 @@
 <template>
-  <div class="home-page" id="components-layout">
-      <HomeHeader />
-      <a-layout>
-        <HomeSider />
-        <HomeContent />
-      </a-layout>
-  </div>
+  <a-layout id="components-layout-demo-top-side-2">
+    <HomeHeader />
+    <a-layout>
+      <HomeSider />
+      <HomeContent />
+    </a-layout>
+  </a-layout>
 </template>
 
 <script>
@@ -22,13 +22,11 @@ export default {
 </script>
 
 <style>
-#components-layout {
-  text-align: center;
-}
-#components-layout > .ant-layout {
-  margin-bottom: 48px;
-}
-#components-layout > .ant-layout:last-child {
-  margin: 0;
+#components-layout-demo-top-side-2 .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 28px 16px 0;
+  float: left;
 }
 </style>

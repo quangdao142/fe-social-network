@@ -1,16 +1,12 @@
 <template>
-  <div class="header" id="header">
-    <a-layout-header>Header</a-layout-header>
-  </div>
+  <a-layout-header class="header">
+    <div class="logo"></div>
+    <a-menu theme="dark" mode="horizontal" :default-selected-keys="['2']" :style="{ lineHeight: '64px' }">
+      <a-input-search placeholder="input search text" style="width: 200px" @search="onSearch" />
+    </a-menu>
+  </a-layout-header>
 </template>
 
-<script>
+<script></script>
 
-</script>
-
-<style>
-#header .ant-layout-header{
-  background: #7dbcea;
-  color: #fff;
-}
-</style>
+<style></style>

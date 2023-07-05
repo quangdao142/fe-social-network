@@ -1,18 +1,13 @@
 <template>
-  <div class="content" id="content">
-    <a-layout-content>Content</a-layout-content>
-  </div>
+  <a-layout style="padding: 24px">
+    <a-layout-content :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '100vh' }">
+      Content
+    </a-layout-content>
+  </a-layout>
 </template>
 
-<script>
-
-</script>
+<script></script>
 
 <style>
-#content .ant-layout-content {
-  background: rgba(16, 142, 233, 1);
-  color: #fff;
-  min-height: 120px;
-  line-height: 120px;
-}
+
 </style>
