@@ -1,18 +1,7 @@
 <template>
-  <div id="app">
-    <HomePage />
-  </div>
+  <router-view />
 </template>
 
-<script>
-import HomePage from "./views/HomePage.vue";
-export default {
-  components: { HomePage }
-};
-</script>
+<script></script>
 
-<style>
-#app {
-  max-width: 100vw;
-}
-</style>
+<style></style>
