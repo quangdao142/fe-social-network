@@ -1,11 +1,13 @@
 <template>
-  <a-layout id="components-layout-demo-top-side-2">
+  <div id="app">
+    <a-layout id="components-layout-demo-top-side-2">
     <HomeHeader />
     <a-layout>
       <HomeSider />
       <HomeContent />
     </a-layout>
   </a-layout>
+  </div>
 </template>
 
 <script>
