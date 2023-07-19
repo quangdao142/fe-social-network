@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <a-layout-sider> <LeftSider /> </a-layout-sider>
     <a-layout>
-      <a-layout-header> <HomeHeader /> </a-layout-header>
+      <a-layout-sider class="leftsider"> <LeftSider /> </a-layout-sider>
+    <a-layout>
+      <a-layout-header class="header"> <HomeHeader /> </a-layout-header>
       <a-layout-content> <HomeContent /> </a-layout-content>
     </a-layout>
-    <a-layout-sider> <RightSider /> </a-layout-sider>
+    <a-layout-sider class="rightsider"> <RightSider /> </a-layout-sider>
+    </a-layout>
+    
   </div>
 </template>
 
@@ -24,12 +27,12 @@ export default {
 };
 </script>
 
-<style>
-/* #components-layout-demo-top-side-2 .logo {
-  width: 120px;
-  height: 31px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px 28px 16px 0;
-  float: left;
-} */
+<style scoped>
+#app .header{
+
+}
+#app .leftsider{
+  background-color: white;
+  width: 700px;
+}
 </style>

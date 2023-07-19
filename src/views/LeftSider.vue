@@ -1,5 +1,5 @@
 <template>
-  <div width="350" style="background: #fff">
+  <div style="background: #fff">
     <a-menu mode="inline" :default-selected-keys="['1']" :style="{ height: '100%', borderRight: 0 }">
       <a-menu-item key="1">
         <a-icon type="home" />
@@ -16,4 +16,4 @@
 
 <script></script>
 
-<style></style>
+<style scoped></style>

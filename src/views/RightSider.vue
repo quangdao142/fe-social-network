@@ -1,5 +1,5 @@
 <template>
-  <div width="350" style="background: #fff">
+  <div style="background: #fff">
     <a-menu mode="inline" 
     :default-open-keys="['sub']" 
     :style="{ height: '100%', borderRight: 0 }">
