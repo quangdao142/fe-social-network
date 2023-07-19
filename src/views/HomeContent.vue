@@ -1,6 +1,6 @@
 <template>
-  <a-layout style="padding: 24px">
-    <a-layout-content :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '100vh' }">
+  <div style="padding: 24px">
+    <div style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '100vh' }">
       <!-- content -->
       <a-card style="margin-bottom: 24px">
         <template slot="actions">
@@ -51,8 +51,8 @@
           </a-card-meta>
         </a-modal>
       </div>
-    </a-layout-content>
-  </a-layout>
+    </div>
+  </div>
 </template>
 
 <script>

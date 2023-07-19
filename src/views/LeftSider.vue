@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider width="350" style="background: #fff">
+  <div width="350" style="background: #fff">
     <a-menu mode="inline" :default-selected-keys="['1']" :style="{ height: '100%', borderRight: 0 }">
       <a-menu-item key="1">
         <a-icon type="home" />
@@ -11,7 +11,7 @@
         <a-menu-item key="2"> Đăng xuất </a-menu-item>
       </a-sub-menu>
     </a-menu>
-  </a-layout-sider>
+  </div>
 </template>
 
 <script></script>
