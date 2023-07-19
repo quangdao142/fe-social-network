@@ -1,6 +1,21 @@
 <template>
   <a-layout style="padding: 24px">
     <a-layout-content :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '100vh' }">
+      <!-- upload a post -->
+      <a-card style="margin-bottom: 10px;">
+        <a-card-meta title="Quang Đào">
+          <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+        </a-card-meta>
+        <div style="margin-top: 20px">
+          <a-textarea placeholder="Bạn đang nghĩ gì ?" :auto-size="{ minRows: 2, maxRows: 6 }" />
+        </div>
+        <a-space style="margin-top: 10px">
+          <a-upload>
+            <a-button> <a-icon type="upload" /> Tải ảnh lên </a-button>
+          </a-upload>
+          <a-button style="" type="primary">Đăng</a-button>
+        </a-space>
+      </a-card>
       <!-- content -->
       <a-card style="margin-bottom: 24px">
         <template slot="actions">
@@ -32,7 +47,7 @@
             alt="example"
             src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
           />
-          <div style="margin: 10px 0px;">
+          <div style="margin: 10px 0px">
             <a-button> <a-icon type="like" /> Like</a-button>
             <a-button> <a-icon type="message" /> Comment</a-button>
           </div>

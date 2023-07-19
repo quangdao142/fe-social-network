@@ -3,8 +3,9 @@
     <a-layout id="components-layout-demo-top-side-2">
     <HomeHeader />
     <a-layout>
-      <HomeSider />
+      <LeftSider />
       <HomeContent />
+      <RightSider />
     </a-layout>
   </a-layout>
   </div>
@@ -12,12 +13,14 @@
 
 <script>
 import HomeHeader from "./HomeHeader.vue";
-import HomeSider from "./HomeSider.vue";
+import LeftSider from "./LeftSider.vue";
+import RightSider from "./RightSider.vue";
 import HomeContent from "./HomeContent.vue";
 export default {
   components: {
     HomeHeader,
-    HomeSider,
+    LeftSider,
+    RightSider,
     HomeContent
   }
 };

@@ -1,10 +1,12 @@
 <template>
-  <a-layout-header class="header">
-    <div class="logo"></div>
-    <a-menu theme="dark" mode="horizontal" :default-selected-keys="['2']" :style="{ lineHeight: '64px' }">
-      <a-input-search placeholder="input search text" style="width: 200px" @search="onSearch" />
-    </a-menu>
-  </a-layout-header>
+  <a-affix :offset-top="top">
+    <a-layout-header class="header">
+      <div style="float: left;">
+        <h1 style="color: white;">Social Network</h1>
+      </div>
+        <a-input-search placeholder="input search text" style="width: 200px" @search="onSearch" />
+    </a-layout-header>
+  </a-affix>
 </template>
 
 <script></script>

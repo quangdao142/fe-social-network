@@ -1,140 +1,53 @@
 <template>
-  <a-form :form="form" @submit="handleSubmit" style="padding: 50px">
-    <a-form-item v-bind="formItemLayout" label="Full name">
-      <a-input
-        v-decorator="[
-          'fullname',
-          {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your Full name!'
-              }
-            ]
-          }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="Username">
-      <a-input
-        v-decorator="[
-          'username',
-          {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your Username!'
-              }
-            ]
-          }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="Password" has-feedback>
-      <a-input
-        v-decorator="[
-          'password',
-          {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your password!'
-              },
-              {
-                validator: validateToNextPassword
-              }
-            ]
-          }
-        ]"
-        type="password"
-      />
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="Confirm Password" has-feedback>
-      <a-input
-        v-decorator="[
-          'confirm',
-          {
-            rules: [
-              {
-                required: true,
-                message: 'Please confirm your password!'
-              },
-              {
-                validator: compareToFirstPassword
-              }
-            ]
-          }
-        ]"
-        type="password"
-        @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item v-bind="tailFormItemLayout">
-      <a-button type="primary" html-type="submit"> Register </a-button>
-    </a-form-item>
-  </a-form>
+  <a-form-model layout="inline" :model="formInline" @submit="handleSubmit" @submit.native.prevent>
+    <a-form-model-item>
+      <a-input v-model="formInline.fullname" placeholder="Fullname">
+        <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
+      </a-input>
+    </a-form-model-item>
+    <a-form-model-item>
+      <a-input v-model="formInline.username" placeholder="Username">
+        <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
+      </a-input>
+    </a-form-model-item>
+    <a-form-model-item>
+      <a-input v-model="formInline.password" type="password" placeholder="Password">
+        <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
+      </a-input>
+    </a-form-model-item>
+    <a-form-model-item>
+      <a-button type="primary" html-type="submit" :disabled="formInline.fullname === '' || formInline.username === '' || formInline.password === ''">
+        Sign up
+      </a-button>
+    </a-form-model-item>
+  </a-form-model>
 </template>
-
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      confirmDirty: false,
-      autoCompleteResult: [],
-      formItemLayout: {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 8 }
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 }
-        }
-      },
-      tailFormItemLayout: {
-        wrapperCol: {
-          xs: {
-            span: 24,
-            offset: 0
-          },
-          sm: {
-            span: 16,
-            offset: 8
-          }
-        }
+      formInline: {
+        fullname: "",
+        username: "",
+        password: ""
       }
     };
   },
-  beforeCreate() {
-    this.form = this.$form.createForm(this, { name: "register" });
-  },
   methods: {
-    handleSubmit(e) {
-      e.preventDefault();
-      this.form.validateFieldsAndScroll((err, values) => {
-        if (!err) {
-          console.log("Received values of form: ", values);
+    async handleSubmit() {
+      console.log(this.formInline);
+      axios({
+        method: "post",
+        url: "http://localhost:3000/api/register",
+        data: {
+          fullname: this.formInline.fullname,
+          username: this.formInline.username,
+          password: this.formInline.password
         }
+      }).then(res => {
+        console.log(res);
       });
-    },
-    handleConfirmBlur(e) {
-      const value = e.target.value;
-      this.confirmDirty = this.confirmDirty || !!value;
-    },
-    compareToFirstPassword(rule, value, callback) {
-      const form = this.form;
-      if (value && value !== form.getFieldValue("password")) {
-        callback("Two passwords that you enter is inconsistent!");
-      } else {
-        callback();
-      }
-    },
-    validateToNextPassword(rule, value, callback) {
-      const form = this.form;
-      if (value && this.confirmDirty) {
-        form.validateFields(["confirm"], { force: true });
-      }
-      callback();
     }
   }
 };
