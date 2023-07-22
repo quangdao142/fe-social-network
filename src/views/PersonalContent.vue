@@ -8,8 +8,6 @@
         </a-card-meta>
         <div style="margin-top: 20px">
           <a-textarea
-            :model="formInline" @submit="handleSubmit" @submit.native.prevent
-            v-model="formInline.content"
             placeholder="Bạn đang nghĩ gì ?"
             :auto-size="{ minRows: 2, maxRows: 6 }"
           />
@@ -18,7 +16,7 @@
           <a-upload>
             <a-button> <a-icon type="upload" /> Tải ảnh lên </a-button>
           </a-upload>
-          <a-button type="primary" html-type="submit" :disabled="formInline.content === ''"> Đăng </a-button>
+          <a-button type="primary" @click="handleSubmit"> Đăng </a-button>
         </a-space>
       </a-card>
       <!-- content -->
@@ -77,7 +75,6 @@
 
 <script>
 import axios from "axios";
-axios.defaults.headers.common["token"] = "token";
 
 export default {
   data() {
