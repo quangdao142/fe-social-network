@@ -1,19 +1,24 @@
 <template>
-  <a-layout style="padding: 24px">
-    <a-layout-content :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '100vh' }">
+  <div style="padding: 24px">
+    <div style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '100vh' }">
       <!-- upload a post -->
-      <a-card style="margin-bottom: 10px;">
+      <a-card style="margin-bottom: 10px">
         <a-card-meta title="Quang Đào">
           <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
         </a-card-meta>
         <div style="margin-top: 20px">
-          <a-textarea placeholder="Bạn đang nghĩ gì ?" :auto-size="{ minRows: 2, maxRows: 6 }" />
+          <a-textarea
+            :model="formInline" @submit="handleSubmit" @submit.native.prevent
+            v-model="formInline.content"
+            placeholder="Bạn đang nghĩ gì ?"
+            :auto-size="{ minRows: 2, maxRows: 6 }"
+          />
         </div>
         <a-space style="margin-top: 10px">
           <a-upload>
             <a-button> <a-icon type="upload" /> Tải ảnh lên </a-button>
           </a-upload>
-          <a-button style="" type="primary">Đăng</a-button>
+          <a-button type="primary" html-type="submit" :disabled="formInline.content === ''"> Đăng </a-button>
         </a-space>
       </a-card>
       <!-- content -->
@@ -66,15 +71,21 @@
           </a-card-meta>
         </a-modal>
       </div>
-    </a-layout-content>
-  </a-layout>
+    </div>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
+axios.defaults.headers.common["token"] = "token";
+
 export default {
   data() {
     return {
-      visible: false
+      visible: false,
+      formInline: {
+        content: ""
+      }
     };
   },
   methods: {
@@ -84,6 +95,19 @@ export default {
     handleOk(e) {
       console.log(e);
       this.visible = false;
+    },
+    async handleSubmit() {
+      console.log(this.formInline);
+      axios({
+        method: "post",
+        url: "http://localhost:3000/api/post",
+        data: {
+          content: this.formInline.content
+        },
+        headers: {}
+      }).then(res => {
+        console.log(res);
+      });
     }
   }
 };

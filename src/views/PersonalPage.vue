@@ -1,38 +1,37 @@
 <template>
-    <div id="app">
-      <a-layout id="components-layout-demo-top-side-2">
-      <HomeHeader />
+  <div id="app">
+    <a-layout>
+      <a-layout-sider class="leftsider" :width="350"> <LeftSider /> </a-layout-sider>
       <a-layout>
-        <LeftSider />
-        <PersonalContent />
-        <RightSider />
+        <a-layout-header class="header"> <HomeHeader /> </a-layout-header>
+        <a-layout-content> <PersonalContent /> </a-layout-content>
       </a-layout>
+      <a-layout-sider class="rightsider" :width="350"> <RightSider /> </a-layout-sider>
     </a-layout>
-    </div>
-  </template>
-  
-  <script>
-  import HomeHeader from "./HomeHeader.vue";
-  import LeftSider from "./LeftSider.vue";
-  import RightSider from "./RightSider.vue";
-  import PersonalContent from "./PersonalContent.vue";
-  export default {
-    components: {
-      HomeHeader,
-      LeftSider,
-      RightSider,
-      PersonalContent
-    }
-  };
-  </script>
-  
-  <style>
-  #components-layout-demo-top-side-2 .logo {
-    width: 120px;
-    height: 31px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px 28px 16px 0;
-    float: left;
+  </div>
+</template>
+
+<script>
+import HomeHeader from "./HomeHeader.vue";
+import LeftSider from "./LeftSider.vue";
+import RightSider from "./RightSider.vue";
+import PersonalContent from "./PersonalContent.vue";
+export default {
+  components: {
+    HomeHeader,
+    LeftSider,
+    RightSider,
+    PersonalContent
   }
-  </style>
-  
+};
+</script>
+
+<style scoped>
+#app .header {
+}
+#app .leftsider,
+.rightsider {
+  background-color: white;
+  width: 700px;
+}
+</style>

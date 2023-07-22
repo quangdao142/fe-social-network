@@ -1,14 +1,13 @@
 <template>
   <div id="app">
     <a-layout>
-      <a-layout-sider class="leftsider"> <LeftSider /> </a-layout-sider>
-    <a-layout>
-      <a-layout-header class="header"> <HomeHeader /> </a-layout-header>
-      <a-layout-content> <HomeContent /> </a-layout-content>
+      <a-layout-sider class="leftsider" :width="350"> <LeftSider /> </a-layout-sider>
+      <a-layout>
+        <a-layout-header class="header"> <HomeHeader /> </a-layout-header>
+        <a-layout-content> <HomeContent /> </a-layout-content>
+      </a-layout>
+      <a-layout-sider class="rightsider" :width="350"> <RightSider /> </a-layout-sider>
     </a-layout>
-    <a-layout-sider class="rightsider"> <RightSider /> </a-layout-sider>
-    </a-layout>
-    
   </div>
 </template>
 
@@ -23,16 +22,24 @@ export default {
     LeftSider,
     RightSider,
     HomeContent
+  },
+  beforeCreate(){
+    let data = localStorage.getItem('key')
+    if(!data){
+      this.$router.push({name:'login'})
+    }
+  },
+  mounted(){
+
   }
 };
 </script>
 
 <style scoped>
-#app .header{
-
-}
-#app .leftsider{
+#app .header {
   background-color: white;
-  width: 700px;
+}
+#app .leftsider, .rightsider {
+  background-color: white;
 }
 </style>

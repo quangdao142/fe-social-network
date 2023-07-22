@@ -6,7 +6,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {},
   getters: {},
-  mutations: {},
+  mutations: {
+    setUsername(state, data) {
+      state.username = data;
+    },
+    setFullname(state, data) {
+      state.fullname = data;
+    }
+  },
   actions: {},
   modules: {}
 });

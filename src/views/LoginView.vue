@@ -19,6 +19,9 @@
 </template>
 <script>
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+import store from "../store";
+
 export default {
   data() {
     return {
@@ -40,8 +43,22 @@ export default {
         }
       }).then(res => {
         console.log(res);
+        localStorage.setItem("key", res.data.token);
+        this.$router.push({ name: "home" });
+        let decoded = jwt_decode(res.data.token);
+        store.commit('setUsername', decoded.username)
+        console.log(store.state.username)
       });
     }
+  },
+  beforeCreate(){
+    let data = localStorage.getItem("key");
+    if (data) {
+      this.$router.push({ name: "home" });
+    }
+  },
+  mounted() {
+
   }
 };
 </script>
