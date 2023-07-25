@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    
+    <h1 style="color: white;">SOCIAL NETWORK</h1>
   </div>
 </template>
 

@@ -6,7 +6,7 @@ import router from "./router";
 import store from "./store";
 import axios from "axios";
 
-axios.defaults.headers.common["token"] = localStorage.getItem("token");
+axios.defaults.headers.common["Authorization"] = localStorage.getItem("key")? localStorage.getItem("key"): '';
 
 Vue.config.productionTip = false;
 Vue.use(Antd);

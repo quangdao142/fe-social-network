@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <a-layout>
-      <a-layout-sider class="leftsider" :width="350"> <LeftSider /> </a-layout-sider>
+      <a-layout-sider class="leftsider" :width="400"> <LeftSider /> </a-layout-sider>
       <a-layout>
         <a-layout-header class="header"> <HomeHeader /> </a-layout-header>
         <a-layout-content> <HomeContent /> </a-layout-content>
       </a-layout>
-      <a-layout-sider class="rightsider" :width="350"> <RightSider /> </a-layout-sider>
+      <a-layout-sider class="rightsider" :width="400"> <RightSider /> </a-layout-sider>
     </a-layout>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
 
 <style scoped>
 #app .header {
-  background-color: white;
+  background-color: #3b5998;
 }
 #app .leftsider, .rightsider {
   background-color: white;

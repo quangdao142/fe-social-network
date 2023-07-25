@@ -8,13 +8,19 @@
         </a-card-meta>
         <div style="margin-top: 20px">
           <a-textarea
+            v-model="formInline.content"
             placeholder="Bạn đang nghĩ gì ?"
             :auto-size="{ minRows: 2, maxRows: 6 }"
           />
         </div>
         <a-space style="margin-top: 10px">
-          <a-upload>
-            <a-button> <a-icon type="upload" /> Tải ảnh lên </a-button>
+          <a-upload
+            name="file"
+            :multiple="true"
+            :headers="headers"
+            @change="handleChange"
+          >
+            <a-button> <a-icon type="upload" /> Click to Upload </a-button>
           </a-upload>
           <a-button type="primary" @click="handleSubmit"> Đăng </a-button>
         </a-space>
@@ -80,14 +86,27 @@ export default {
   data() {
     return {
       visible: false,
+      headers: {
+        authorization: 'authorization-text',
+      },
       formInline: {
         content: ""
-      }
+      },
     };
   },
   methods: {
     showModal() {
       this.visible = true;
+    },
+    handleChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        this.$message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        this.$message.error(`${info.file.name} file upload failed.`);
+      }
     },
     handleOk(e) {
       console.log(e);
