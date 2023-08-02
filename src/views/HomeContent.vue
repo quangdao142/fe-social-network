@@ -9,7 +9,7 @@
           <a-icon key="fullscreen" type="fullscreen" @click="showModal" />
         </template>
         <a-card-meta
-          title="Card title"
+          title="Quang Đào"
           description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates consequatur labore vitae quod recusandae exercitationem quasi voluptatem deserunt ab molestias soluta excepturi dolorem ex magni, veritatis obcaecati quaerat. Pariatur, obcaecati."
         >
           <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
@@ -34,9 +34,9 @@
           />
           <div style="margin: 10px 0px;">
             <a-button> <a-icon type="like" /> Like</a-button>
-            <a-button> <a-icon type="message" /> Comment</a-button>
+            <!-- <a-button> <a-icon type="message" /> Comment</a-button> -->
           </div>
-          <a-card-meta style="margin-top: 10px" title="Card title">
+          <a-card-meta style="margin-top: 10px" title="Quang Đào">
             <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
           </a-card-meta>
           <div style="margin: 10px 0px 0px 40px">
@@ -44,7 +44,7 @@
           </div>
           <a-card-meta
             style="margin-top: 10px"
-            title="Card title"
+            title="Minh Nguyễn"
             description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates consequatur labore vitae quod recusandae exercitationem quasi voluptatem deserunt ab molestias soluta excepturi dolorem ex magni, veritatis obcaecati quaerat. Pariatur, obcaecati."
           >
             <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />

@@ -33,7 +33,7 @@
           <a-icon key="fullscreen" type="fullscreen" @click="showModal" />
         </template>
         <a-card-meta
-          title="Card title"
+          title="Quang Đào"
           description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates consequatur labore vitae quod recusandae exercitationem quasi voluptatem deserunt ab molestias soluta excepturi dolorem ex magni, veritatis obcaecati quaerat. Pariatur, obcaecati."
         >
           <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
