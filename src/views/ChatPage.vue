@@ -31,7 +31,7 @@ export default {
   background-color: #3b5998;
 }
 #app .content {
-
+  min-height: 100vh;
 }
 #app .leftsider,
 .rightsider {
