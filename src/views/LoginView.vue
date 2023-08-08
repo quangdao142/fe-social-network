@@ -1,22 +1,36 @@
 <template>
-  <a-form-model layout="inline" :model="formInline" @submit="handleSubmit" @submit.native.prevent>
-    <a-form-model-item>
+  <a-form
+    id="components-form-demo-normal-login"
+    :form="form"
+    class="login-form"
+    @submit="handleSubmit"
+    style="padding: 100px 700px"
+  >
+    <h1 class="center-text bold-text large-text">SOCIAL NETWORK</h1>
+    <h2 class="center-text large-text">LOGIN</h2>
+    <br />
+    <a-form-item>
       <a-input v-model="formInline.username" placeholder="Username">
         <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
       </a-input>
-    </a-form-model-item>
-    <a-form-model-item>
+    </a-form-item>
+
+    <a-form-item>
       <a-input v-model="formInline.password" type="password" placeholder="Password">
         <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
       </a-input>
-    </a-form-model-item>
-    <a-form-model-item>
+    </a-form-item>
+
+    <a-form-item>
       <a-button type="primary" html-type="submit" :disabled="formInline.username === '' || formInline.password === ''">
         Log in
       </a-button>
-    </a-form-model-item>
-  </a-form-model>
+      Or
+      <router-link to="/signup">Register now!</router-link>
+    </a-form-item>
+  </a-form>
 </template>
+
 <script>
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -46,19 +60,33 @@ export default {
         localStorage.setItem("key", res.data.token);
         this.$router.push({ name: "home" });
         let decoded = jwt_decode(res.data.token);
-        store.commit('setUsername', decoded.username)
-        console.log(store.state.username)
+        store.commit("setUsername", decoded.username);
+        console.log(store.state.username);
       });
     }
   },
-  beforeCreate(){
+  beforeCreate() {
     let data = localStorage.getItem("key");
     if (data) {
       this.$router.push({ name: "home" });
     }
   },
-  mounted() {
-
-  }
+  mounted() {}
 };
 </script>
+
+<style scoped>
+#components-form-demo-normal-login .login-form {
+  max-width: 100px;
+}
+.center-text {
+  text-align: center;
+  color: #0066ff;
+}
+.bold-text {
+  font-weight: bold;
+}
+.large-text {
+  font-size: 40px;
+}
+</style>

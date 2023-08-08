@@ -14,35 +14,34 @@
           />
         </div>
         <a-space style="margin-top: 10px">
-          <a-upload
-            name="file"
-            :multiple="true"
-            :headers="headers"
-            @change="handleChange"
-          >
+          <a-upload name="file" :multiple="true" :headers="headers" @change="handleChange">
             <a-button> <a-icon type="upload" /> Click to Upload </a-button>
           </a-upload>
           <a-button type="primary" @click="handleSubmit"> Đăng </a-button>
         </a-space>
       </a-card>
       <!-- content -->
-      <a-card style="margin-bottom: 24px">
-        <template slot="actions">
-          <a-icon key="like" type="like" />
-          <a-icon key="message" type="message" @click="showModal" />
-          <a-icon key="fullscreen" type="fullscreen" @click="showModal" />
-        </template>
-        <a-card-meta
-          title="Quang Đào"
-          description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates consequatur labore vitae quod recusandae exercitationem quasi voluptatem deserunt ab molestias soluta excepturi dolorem ex magni, veritatis obcaecati quaerat. Pariatur, obcaecati."
-        >
-          <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-        </a-card-meta>
-        <img slot="cover" alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
-      </a-card>
+      <div>
+    <div class="no-dot-list">
+      <div v-for="item in items" :key="item._id">
+        <a-card style="margin-bottom: 24px">
+          <template #actions>
+            <a-icon key="like" type="like" />
+            <a-icon key="message" type="message" @click="showModal" />
+            <a-icon key="fullscreen" type="fullscreen" @click="showModal" />
+          </template>
+          <a-card-meta :title="item.username" :description="item.content">
+            <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+          </a-card-meta>
+          <img slot="cover" alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+        </a-card>
+      </div>
+    </div>
+  </div>
+
       <!-- modal -->
       <div>
-        <a-modal v-model="visible" title="Bài viết của Quang Đào" @ok="handleOk">
+        <a-modal v-model="visible" title="Bài viết của " @ok="handleOk">
           <a-card-meta
             title="Quang Đào"
             description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates consequatur labore vitae quod recusandae exercitationem quasi voluptatem deserunt ab molestias soluta excepturi dolorem ex magni, veritatis obcaecati quaerat. Pariatur, obcaecati."
@@ -87,11 +86,13 @@ export default {
     return {
       visible: false,
       headers: {
-        authorization: 'authorization-text',
+        authorization: "authorization-text"
       },
       formInline: {
         content: ""
       },
+      items: [],
+      fullname: ""
     };
   },
   methods: {
@@ -99,12 +100,12 @@ export default {
       this.visible = true;
     },
     handleChange(info) {
-      if (info.file.status !== 'uploading') {
+      if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (info.file.status === 'done') {
+      if (info.file.status === "done") {
         this.$message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === 'error') {
+      } else if (info.file.status === "error") {
         this.$message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -124,9 +125,30 @@ export default {
       }).then(res => {
         console.log(res);
       });
+    },
+    async fetchItems() {
+      try {
+        const response = await fetch("http://localhost:3000/api/getpost");
+        const data = await response.json();
+        this.items = data.items;
+        this.fullname = data.fullname
+      } catch (error) {
+        console.error(error);
+      }
     }
+  },
+  created() {
+    this.fetchItems();
   }
 };
 </script>
 
-<style></style>
+<style>
+.no-dot-list {
+  /* Loại bỏ dấu chấm cho danh sách */
+  list-style: none;
+  /* Loại bỏ đệm và khoảng cách giữa các phần tử trong danh sách */
+  padding: 0;
+  margin: 0;
+}
+</style>

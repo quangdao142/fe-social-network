@@ -5,12 +5,19 @@
         <a-icon type="home" />
         Trang chủ <router-link to="/"></router-link>
       </a-menu-item>
+
       <a-sub-menu key="sub">
         <span slot="title"><a-icon type="user" /> {{ fullname }} </span>
+
         <a-menu-item key="1"> Trang cá nhân 
           <router-link to="/personal"></router-link>
         </a-menu-item>
-        <a-menu-item v-on:click="logout" key="2"> Đăng xuất </a-menu-item>
+
+        <a-menu-item key="2"> Thông tin cá nhân 
+          <router-link to="/userinfo"></router-link>
+        </a-menu-item>
+        
+        <a-menu-item v-on:click="logout" key="3"> Đăng xuất </a-menu-item>
       </a-sub-menu>
     </a-menu>
   </div>
