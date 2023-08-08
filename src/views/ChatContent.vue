@@ -27,13 +27,11 @@ export default {
       users: [
         { name: "User 1", avatar: "https://via.placeholder.com/40" },
         { name: "User 2", avatar: "https://via.placeholder.com/40" }
-        // Add more users
       ],
       selectedUser: { name: "User 1", avatar: "https://via.placeholder.com/40" },
       messages: [
         { user: "User 1", content: "Hello" },
         { user: "User 2", content: "Hi there" }
-        // Add more messages
       ],
       newMessage: ""
     };
@@ -53,7 +51,6 @@ export default {
 </script>
 
 <style scoped>
-/* Tùy chỉnh CSS để tạo giao diện trang chat */
 .chat-page {
   display: flex;
   height: 100vh;
