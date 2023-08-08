@@ -111,7 +111,7 @@ export default {
 .chat-input-container input {
   flex: 1;
   padding: 8px;
-  border: 2px solid #ccc; /* Màu viền ban đầu */
+  border: 2px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
 }
