@@ -28,7 +28,7 @@ export default{
   methods:{
     // async fetchFullname() {
     //   try {
-    //     const response = await axios.get("http://localhost:3000/api/");
+    //     const response = await customAxios.get("");
     //     this.fullname = response.data.fullname;
     //   } catch (error) {
     //     console.error(error);

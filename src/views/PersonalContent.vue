@@ -7,21 +7,12 @@
           <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
         </a-card-meta>
         <div style="margin-top: 20px">
-          <a-textarea
-            v-model="formInline.content"
-            placeholder="Bạn đang nghĩ gì ?"
-            :auto-size="{ minRows: 2, maxRows: 6 }"
-          />
+          <a-textarea v-model="formInline.content" placeholder="Bạn đang nghĩ gì ?"
+            :auto-size="{ minRows: 2, maxRows: 6 }" />
         </div>
         <a-space style="margin-top: 10px">
-          <a-upload
-            name="file"
-            :multiple="true"
-            :headers="headers"
-            :before-upload="beforeUpload"
-            :custom-request="customUpload"
-            @change="handleUploadChange"
-          >
+          <a-upload name="file" :multiple="true" :headers="headers" :before-upload="beforeUpload"
+            :custom-request="customUpload" @change="handleUploadChange">
             <a-button> <a-icon type="upload" /> Click to Upload </a-button>
           </a-upload>
           <a-button type="primary" @click="handleSubmit"> Đăng </a-button>
@@ -41,11 +32,7 @@
               <a-card-meta :title="fullname" :description="item.content">
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
               </a-card-meta>
-              <img
-                slot="cover"
-                alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-              />
+              <img slot="cover" alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
             </a-card>
           </div>
         </div>
@@ -57,17 +44,12 @@
           <a-card-meta :title="currentPost?.fullname" :description="currentPost?.content" style="margin-bottom: 10px">
             <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
           </a-card-meta>
-          <img
-            width="100%"
-            margin-bottom="5px"
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          />
+          <img width="100%" margin-bottom="5px" alt="example"
+            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
           <div style="margin: 10px 0px">
             <a-button @click="showEditModal"> <a-icon type="edit" /> Chỉnh sửa</a-button>
             <a-button style="margin-left: 5px" key="delete" type="delete" @click="deletePost(item._id)">
-              <a-icon type="delete" /> Xóa</a-button
-            >
+              <a-icon type="delete" /> Xóa</a-button>
           </div>
           <a-card-meta style="margin-top: 10px" :title="currentPost?.fullname">
             <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
@@ -80,12 +62,8 @@
 
           <!-- Show Comment -->
           <div v-for="comment in reversedComments" :key="comment._id">
-            <a-card-meta
-              v-if="comment.postId === currentPost?._id"
-              style="margin-top: 10px"
-              :title="comment.fullname"
-              :description="comment.content"
-            >
+            <a-card-meta v-if="comment.postId === currentPost?._id" style="margin-top: 10px" :title="comment.fullname"
+              :description="comment.content">
               <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
             </a-card-meta>
           </div>
@@ -94,11 +72,7 @@
       <!-- Edit Modal -->
       <div>
         <a-modal v-model="editvisible" title="Chỉnh sửa bài viết" @ok="handleEditOk">
-          <a-textarea
-            v-model="editedContent"
-            :placeholder="currentPost?.content"
-            :auto-size="{ minRows: 5}"
-          />
+          <a-textarea v-model="editedContent" :placeholder="currentPost?.content" :auto-size="{ minRows: 5 }" />
           <a-button style="margin-top: 10px;">Cập nhật bài viết</a-button>
         </a-modal>
       </div>
@@ -159,14 +133,12 @@ export default {
     },
     async handleSubmit() {
       console.log(this.formInline);
-      axios({
-        method: "post",
-        url: "http://localhost:3000/api/post",
-        data: {
+      customAxios.post(
+        "http://localhost:3000/api/post",
+        {
           content: this.formInline.content
         },
-        headers: {}
-      }).then(res => {
+      ).then(res => {
         console.log(res);
         this.formInline.content = "";
         this.fetchPosts();
@@ -183,7 +155,7 @@ export default {
     },
     async fetchComments() {
       try {
-        const response = await fetch("http://localhost:3000/api/comment");
+        const response = await customAxios.get("comment");
         const data = await response.json();
         // console.log(data)
         this.comments = data;
@@ -194,14 +166,11 @@ export default {
     },
     async sendComment() {
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/comment",
+        const response = await customAxios.post(
+          "comment",
           {
             postId: this.currentPost._id,
             content: this.commentText
-          },
-          {
-            headers: {}
           }
         );
         console.log(response.data);
@@ -263,7 +232,7 @@ export default {
   },
   async deletePost() {
     try {
-      const response = await axios.delete(`http://localhost:3000/api/post/${this.currentPost._id}`);
+      const response = await customAxios.delete(`post/${this.currentPost._id}`);
       console.log(response.data);
       this.visible = false;
       this.fetchPosts();
@@ -282,12 +251,14 @@ export default {
   padding: 0;
   margin: 0;
 }
+
 .comment-container {
   display: flex;
   align-items: center;
   margin-top: 10px;
   margin-left: 40px;
 }
+
 .comment-container a-textarea {
   flex: 1;
   margin-right: 5px;

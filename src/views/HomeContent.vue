@@ -138,7 +138,7 @@ export default {
     },
     async fetchComments() {
       try {
-        const response = await fetch("http://localhost:3000/api/comment");
+        const response = await customAxios.get("comment");
         const data = await response.json();
         // console.log(data)
         this.comments = data;
@@ -149,14 +149,11 @@ export default {
     },
     async sendComment() {
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/comment",
+        const response = await customAxios.post(
+          "comment",
           {
             postId: this.currentPost._id,
             content: this.commentText
-          },
-          {
-            headers: {}
           }
         );
         console.log(response.data);
@@ -179,8 +176,8 @@ export default {
   },
   async toggleLike(item) {
       try {
-        const response = await axios.post(
-          `http://localhost:3000/api/like/${item._id}`
+        const response = await customAxios.post(
+          `like/${item._id}`
         );
         console.log(response.data);
         item.liked = !item.liked;
