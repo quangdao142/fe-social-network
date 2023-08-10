@@ -1,11 +1,6 @@
 <template>
-  <a-form
-    id="components-form-demo-normal-login"
-    :form="form"
-    class="login-form"
-    @submit="handleSubmit"
-    style="padding: 100px 700px"
-  >
+  <a-form id="components-form-demo-normal-login" class="login-form" @submit="handleSubmit" @submit.native.prevent
+    style="padding: 100px 700px">
     <h1 class="center-text bold-text large-text">SOCIAL NETWORK</h1>
     <h2 class="center-text large-text">LOGIN</h2>
     <br />
@@ -57,21 +52,25 @@ export default {
         }
       }).then(res => {
         console.log(res);
-        localStorage.setItem("key", res.data.token);
-        this.$router.push({ name: "home" });
-        let decoded = jwt_decode(res.data.token);
-        store.commit("setUsername", decoded.username);
-        console.log(store.state.username);
+        if (res.data.statusCode === 200 && !res.data.err) {
+          localStorage.setItem("key", res.data.token);
+          this.$router.push({ name: "home" });
+          let decoded = jwt_decode(res.data.data.token);
+          store.commit("setUsername", decoded.username);
+          console.log(store.state.username);
+        } else if (res.data.statusCode === 400) {
+          alert("Login failed: ", res.data.error);
+        }
       });
     }
   },
   beforeCreate() {
-    let data = localStorage.getItem("key");
-    if (data) {
-      this.$router.push({ name: "home" });
-    }
+    // let data = localStorage.getItem("key");
+    // if (data) {
+    //   this.$router.push({ name: "home" });
+    // }
   },
-  mounted() {}
+  mounted() { }
 };
 </script>
 
@@ -79,13 +78,16 @@ export default {
 #components-form-demo-normal-login .login-form {
   max-width: 100px;
 }
+
 .center-text {
   text-align: center;
   color: #0066ff;
 }
+
 .bold-text {
   font-weight: bold;
 }
+
 .large-text {
   font-size: 40px;
 }
