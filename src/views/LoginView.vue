@@ -30,7 +30,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import store from "../store";
-
+import { AUTH_LOGIN } from "../store/actions/auth";
 export default {
   data() {
     return {
@@ -43,26 +43,42 @@ export default {
   methods: {
     async handleSubmit() {
       console.log(this.formInline);
-      axios({
-        method: "post",
-        url: "http://localhost:3000/api/login",
-        data: {
+      // axios({
+      //   method: "post",
+      //   url: "http://localhost:3000/api/login",
+      //   data: {
+      //     username: this.formInline.username,
+      //     password: this.formInline.password
+      //   }
+      // }).then(res => {
+      //   console.log(res);
+      //   if (res.data.statusCode === 200 && !res.data.err) {
+      //     localStorage.setItem("key", res.data.token);
+      //     this.$router.push({ name: "home" });
+      //     let decoded = jwt_decode(res.data.data.token);
+      //     store.commit("setUsername", decoded.username);
+      //     console.log(store.state.username);
+      //   } else if (res.data.statusCode === 400) {
+      //     alert("Login failed: ", res.data.error);
+      //   }
+      // });
+
+      this.$store.dispatch(AUTH_LOGIN, {
           username: this.formInline.username,
           password: this.formInline.password
+        }).then(() => {
+        this.setSocketToken(this.$store.state.Auth.token);
+        // this.$socket.open();
+        if (this.$route.query.redirect) {
+          return this.$router.push(this.$route.query.redirect);
         }
-      }).then(res => {
-        console.log(res);
-        if (res.data.statusCode === 200 && !res.data.err) {
-          localStorage.setItem("key", res.data.data.token);
-          this.$router.push({ name: "home" });
-          let decoded = jwt_decode(res.data.data.token);
-          store.commit("setUsername", decoded.username);
-          console.log(store.state.username);
-        } else if (res.data.statusCode === 400) {
-          alert("Login failed: ", res.data.error);
-        }
+        this.$router.push({ name: "home" });
       });
-    }
+
+    },
+    setSocketToken(token) {
+      // this.$socket.io.opts.query.token = token;
+    },
   },
   beforeCreate() {
     // let data = localStorage.getItem("key");

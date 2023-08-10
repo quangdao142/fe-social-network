@@ -107,6 +107,7 @@
 </template>
 
 <script>
+import customAxios from "@/utils/axios";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
@@ -173,7 +174,7 @@ export default {
     },
     async fetchPosts() {
       try {
-        const response = await fetch("http://localhost:3000/api/getpost");
+        const response = await customAxios.get("get-post");
         const data = await response.json();
         this.items = data.items;
       } catch (error) {
