@@ -13,9 +13,9 @@
           <router-link to="/personal"></router-link>
         </a-menu-item>
 
-        <a-menu-item key="2"> Thông tin cá nhân 
+        <!-- <a-menu-item key="2"> Thông tin cá nhân 
           <router-link to="/userinfo"></router-link>
-        </a-menu-item>
+        </a-menu-item> -->
         
         <a-menu-item v-on:click="logout" key="3"> Đăng xuất </a-menu-item>
       </a-sub-menu>
