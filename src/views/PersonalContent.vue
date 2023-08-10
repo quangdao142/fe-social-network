@@ -108,7 +108,7 @@ export default {
     showModal(post) {
       this.currentPost = post;
       this.visible = true;
-      this.fetchComments();
+      this.fetchComments(post._id);
     },
     showEditModal() {
       this.editvisible = true;
@@ -147,19 +147,15 @@ export default {
     async fetchPosts() {
       try {
         const response = await customAxios.get("get-post");
-        const data = await response.json();
-        this.items = data.items;
+        this.items = response.data.items;
       } catch (error) {
         console.error(error);
       }
     },
-    async fetchComments() {
+    async fetchComments(postId) {
       try {
-        const response = await customAxios.get("comment");
-        const data = await response.json();
-        // console.log(data)
-        this.comments = data;
-        console.log(this.comments);
+        const response = await customAxios.get("comment-by-post/" + postId);
+        this.comments = response.data.message;
       } catch (error) {
         console.error(error);
       }
@@ -173,8 +169,7 @@ export default {
             content: this.commentText
           }
         );
-        console.log(response.data);
-        this.fetchComments();
+        await this.fetchComments(this.currentPost._id);
       } catch (error) {
         console.error(error);
       }
