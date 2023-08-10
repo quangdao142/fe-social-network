@@ -27,15 +27,23 @@ export default {
 </script>
 
 <style scoped>
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
 #app .header {
   background-color: #3b5998;
+  flex: 0 0 auto;
 }
 #app .content {
-  min-height: 100vh;
+  flex: 1;
+  overflow: auto;
 }
 #app .leftsider,
 .rightsider {
   background-color: white;
-  width: 700px;
+  flex: 0 0 400px;
 }
 </style>

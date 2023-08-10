@@ -128,7 +128,7 @@ export default {
     },
     async fetchPosts() {
       try {
-        const response = await fetch("http://localhost:3000/api/getpost");
+        const response = await fetch("http://localhost:3000/api/get-post");
         const data = await response.json();
         this.items = data.items;
       } catch (error) {

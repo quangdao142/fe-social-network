@@ -53,7 +53,7 @@ export default {
       }).then(res => {
         console.log(res);
         if (res.data.statusCode === 200 && !res.data.err) {
-          localStorage.setItem("key", res.data.token);
+          localStorage.setItem("key", res.data.data.token);
           this.$router.push({ name: "home" });
           let decoded = jwt_decode(res.data.data.token);
           store.commit("setUsername", decoded.username);
