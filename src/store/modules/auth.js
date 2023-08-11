@@ -25,7 +25,7 @@ const actions = {
           if (res.data.statusCode === 200 && !res.data.err) {
             let decoded = jwtDecode(res.data.data.token);
             commit(AUTH_SUCCESS, res.data);
-            commit(GET_USER, decoded);
+            commit(GET_USER, decoded.userId);
             localStorage.setItem("key", res.data.data.token);
             resolve(res);
           } else if (res.data.statusCode === 400) {

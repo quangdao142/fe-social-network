@@ -2,14 +2,15 @@
   <div class="chat-page">
     <div class="chat-main">
       <div class="chat-header">
-        <h2>User 2</h2>
+        <h2>{{ users[0]._id }}</h2>
       </div>
 
       <div class="chat-messages">
         <div class="message" v-for="(message, index) in messages" :key="index">
+          {{ message.message }}
           <div :class="[message.user === selectedUser.name ? 'user-1' : 'user-2', 'message-content']">
             <div class="message-user">{{ message.user }}</div>
-            <div class="message-text">{{ message.content }}</div>
+            <div class="message-text">{{ message.message }}</div>
           </div>
         </div>
       </div>
@@ -23,30 +24,71 @@
 </template>
 
 <script>
+import store from '@/store';
+import customAxios from '@/utils/axios';
+import io from 'socket.io-client';
+
+const socket = io.connect('http://localhost:3000',
+  {
+    auth: {
+      token: `Bearer ${store.state.Auth.token}`
+    }
+  });
+
+socket.on('user-connected', (userId) => {
+  console.log(userId);
+});
+
+socket.on('error', (err) => {
+  alert(err);
+})
 export default {
   data() {
     return {
       users: [
-        { name: "My name", avatar: "https://via.placeholder.com/40" },
-        { name: "User 2", avatar: "https://via.placeholder.com/40" }
+        { _id: store.state.Auth.user, avatar: "https://via.placeholder.com/40" },
+        { _id: this.$route.params.userId, avatar: "https://via.placeholder.com/40" }
       ],
       selectedUser: { name: "My name", avatar: "https://via.placeholder.com/40" },
-      messages: [
-        { user: "My name", content: "Hello" },
-        { user: "User 2", content: "Hi there" }
-      ],
-      newMessage: ""
+      newMessage: "",
+      messages: [],
+      conversationId: 0,
     };
+  },
+  async beforeMount() {
+    await customAxios.post("/start-conversation", {
+      userId: this.$route.params.userId
+    }).then(res => {
+      this.conversationId = res.data.data._id
+    });
+    await customAxios.get(`message-by-conversation/${this.conversationId}`)
+      .then(res => { this.messages = res.data.data });
+    console.log(this.messages);
+
+    socket.emit('join', this.conversationId);
+    socket.on('message', (message) => {
+      console.log(message)
+      this.messages.push(message);
+    })
+  },
+  async mounted() {
+
+
+
   },
   methods: {
     sendMessage() {
-      if (this.newMessage.trim() !== "") {
-        this.messages.push({
-          user: this.selectedUser.name,
-          content: this.newMessage
-        });
-        this.newMessage = "";
-      }
+
+      console.log({
+        conversationId: this.conversationId,
+        message: this.newMessage
+      })
+      socket.emit("message", {
+        conversationId: this.conversationId,
+        message: this.newMessage
+      })
+
+      this.newMessage = ""
     }
   }
 };
@@ -86,6 +128,7 @@ export default {
   overflow-y: scroll;
   padding: 20px;
 }
+
 .chat-input-container {
   position: fixed;
   bottom: 0;
@@ -116,6 +159,7 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .message-content {
   display: flex;
   flex-direction: column;
@@ -130,6 +174,7 @@ export default {
   margin-top: 5px;
   color: #222;
 }
+
 .message {
   display: flex;
   flex-direction: column;
@@ -142,10 +187,12 @@ export default {
   margin-bottom: 5px;
   font-size: 14px;
 }
+
 .message-text {
   font-size: 16px;
   margin-top: 5px;
 }
+
 .user-1 {
   background-color: #f0f0f0;
   border: 1px solid #ccc;

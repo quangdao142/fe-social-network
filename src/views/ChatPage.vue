@@ -1,12 +1,20 @@
 <template>
   <div id="app">
     <a-layout>
-      <a-layout-sider class="leftsider" :width="400"> <LeftSider /> </a-layout-sider>
+      <a-layout-sider class="leftsider" :width="400">
+        <LeftSider />
+      </a-layout-sider>
       <a-layout>
-        <a-layout-header class="header"> <HomeHeader /> </a-layout-header>
-        <a-layout-content class="content"> <ChatContent/> </a-layout-content>
+        <a-layout-header class="header">
+          <HomeHeader />
+        </a-layout-header>
+        <a-layout-content class="content">
+          <ChatContent />
+        </a-layout-content>
       </a-layout>
-      <a-layout-sider class="rightsider" :width="400"> <RightSider /> </a-layout-sider>
+      <a-layout-sider class="rightsider" :width="400">
+        <RightSider />
+      </a-layout-sider>
     </a-layout>
   </div>
 </template>
@@ -16,12 +24,19 @@ import HomeHeader from "./HomeHeader.vue";
 import LeftSider from "./LeftSider.vue";
 import RightSider from "./RightSider.vue";
 import ChatContent from "./ChatContent.vue";
+import store from "@/store";
+
+
 export default {
-  components: {
+  components: { 
     HomeHeader,
     LeftSider,
     RightSider,
     ChatContent
+  },
+  data() {
+    return {
+    }
   }
 };
 </script>
@@ -33,14 +48,17 @@ export default {
   height: 100vh;
   overflow: hidden;
 }
+
 #app .header {
   background-color: #3b5998;
   flex: 0 0 auto;
 }
+
 #app .content {
   flex: 1;
   overflow: auto;
 }
+
 #app .leftsider,
 .rightsider {
   background-color: white;
