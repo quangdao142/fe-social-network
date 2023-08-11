@@ -48,8 +48,10 @@
             src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
           <div style="margin: 10px 0px">
             <a-button @click="showEditModal"> <a-icon type="edit" /> Chỉnh sửa</a-button>
-            <a-button style="margin-left: 5px" key="delete" type="delete" @click="deletePost(item._id)">
-              <a-icon type="delete" /> Xóa</a-button>
+            <a-button key="delete" style="margin-left: 5px" type="delete" @click="deletePost">
+              <a-icon type="delete" />
+              Xóa
+            </a-button>
           </div>
           <a-card-meta style="margin-top: 10px" :title="currentPost?.fullname">
             <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
@@ -73,7 +75,7 @@
       <div>
         <a-modal v-model="editvisible" title="Chỉnh sửa bài viết" @ok="handleEditOk">
           <a-textarea v-model="editedContent" :placeholder="currentPost?.content" :auto-size="{ minRows: 5 }" />
-          <a-button style="margin-top: 10px;">Cập nhật bài viết</a-button>
+          <a-button style="margin-top: 10px;" @click="handleSubmit(currentPost)">Cập nhật bài viết</a-button>
         </a-modal>
       </div>
     </div>
@@ -101,7 +103,8 @@ export default {
       username: "",
       currentPost: null,
       commentText: "",
-      comments: []
+      comments: [],
+      editedContent: ""
     };
   },
   methods: {
@@ -131,13 +134,15 @@ export default {
       console.log(e);
       this.visible = false;
     },
-    async handleSubmit() {
-      console.log(this.formInline);
-      customAxios.post(
-        "http://localhost:3000/api/post",
-        {
-          content: this.formInline.content
-        },
+    async handleSubmit(currentPost) {
+      let data;
+      if (currentPost == null) {
+        data = { "content": this.formInline.content };
+      } else {
+        data = { "_id": currentPost._id, "content": this.editedContent };
+      }
+      customAxios.post("/post",
+        data
       ).then(res => {
         console.log(res);
         this.formInline.content = "";
@@ -205,6 +210,16 @@ export default {
       } else if (info.file.status === "error") {
         this.$message.error(`${info.file.name} tải lên thất bại.`);
       }
+    },
+    async deletePost() {
+      try {
+        const response = await customAxios.delete(`/post/${this.currentPost._id}`);
+        console.log(response.data);
+        this.visible = false;
+        await this.fetchPosts();
+      } catch (error) {
+        console.error(error);
+      }
     }
   },
   created() {
@@ -223,16 +238,6 @@ export default {
     },
     reversedItems() {
       return this.items.slice().reverse();
-    }
-  },
-  async deletePost() {
-    try {
-      const response = await customAxios.delete(`post/${this.currentPost._id}`);
-      console.log(response.data);
-      this.visible = false;
-      this.fetchPosts();
-    } catch (error) {
-      console.error(error);
     }
   }
 };
